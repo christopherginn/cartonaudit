@@ -44,3 +44,41 @@ function addManifestCartons(){
     enteredCartonNumberField.value = "";
     return;
 }
+
+function removeCartonNumber(){
+    event.preventDefault();
+    var enteredCartonNumberField = document.getElementById("cartonNumber");
+    let enteredCarton = enteredCartonNumberField.value.slice(-6);
+    if (manifestCartons.length==0){
+        console.log(`No cartons in list to remove`);
+        return;
+    }
+    if (enteredCarton.match(/^[0-9]+$/)){
+
+        if (manifestCartons.includes(enteredCarton)){
+            const index = manifestCartons.indexOf(enteredCarton)
+            manifestCartons.splice(index, 1);
+            enteredCartonNumberField.value = "";
+            enteredCartonNumberField.focus();
+
+
+            document.getElementById("manifestCartonCount").innerHTML=manifestCartons.length;
+            let manifestCartonList = document.getElementById("manifestCartonList");
+            manifestCartonList.innerHTML=""
+                for (i = 0; i < manifestCartons.length; i++){
+                   let li = document.createElement('li');
+                   li.innerText = manifestCartons[i];
+                   manifestCartonList.appendChild(li)
+                }
+
+            return;
+        }
+
+        console.log(`Carton number not in list`);
+        return;
+    }
+    console.log(`Enter a number`)
+    enteredCartonNumberField.value = "";
+    return;
+}
+
