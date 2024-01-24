@@ -1,6 +1,8 @@
 // console.log("hello")
 
 let manifestCartons = []
+let scannedCartons = []
+let unexpectedCartons = []
 
 function addManifestCartons(){
     event.preventDefault();
@@ -29,13 +31,7 @@ function addManifestCartons(){
         document.getElementById("manifestCartonCount").innerHTML=manifestCartons.length
 
         //Create visible list of cartons on manifest
-        let manifestCartonList = document.getElementById("manifestCartonList");
-        manifestCartonList.innerHTML=""
-            for (i = 0; i < manifestCartons.length; i++){
-               let li = document.createElement('li');
-               li.innerText = manifestCartons[i];
-               manifestCartonList.appendChild(li)
-            }
+        createManifestCartonList();
 
         return;
     }
@@ -61,15 +57,8 @@ function removeCartonNumber(){
             enteredCartonNumberField.value = "";
             enteredCartonNumberField.focus();
 
-
             document.getElementById("manifestCartonCount").innerHTML=manifestCartons.length;
-            let manifestCartonList = document.getElementById("manifestCartonList");
-            manifestCartonList.innerHTML=""
-                for (i = 0; i < manifestCartons.length; i++){
-                   let li = document.createElement('li');
-                   li.innerText = manifestCartons[i];
-                   manifestCartonList.appendChild(li)
-                }
+            createManifestCartonList();
 
             return;
         }
@@ -82,3 +71,52 @@ function removeCartonNumber(){
     return;
 }
 
+function createManifestCartonList(){
+    let manifestCartonList = document.getElementById("manifestCartonList");
+        manifestCartonList.innerHTML=""
+            for (i = 0; i < manifestCartons.length; i++){
+               let li = document.createElement('li');
+               li.setAttribute("id", manifestCartons[i]);
+               li.innerText = manifestCartons[i];
+               manifestCartonList.appendChild(li)
+            }
+}
+
+function addScannedCartons(){
+    event.preventDefault();
+    var enteredCartonNumberField = document.getElementById("scanCartonInput");
+    //Get only the last six characters of the carton number entered
+    let enteredCarton = enteredCartonNumberField.value.slice(-6);
+    
+    //Check if entered value is number.
+    if (enteredCarton.match(/^[0-9]+$/)){
+
+        //Check if entered value has already been entered. 
+        //If so, display error, clear input field and focus cursor for new input.
+        if (scannedCartons.includes(enteredCarton)){
+            console.log(`Carton already entered`)
+            enteredCartonNumberField.value = "";
+            enteredCartonNumberField.focus();
+            return;
+        }
+
+        if (manifestCartons.includes(enteredCarton)){
+            scannedCartons.push(enteredCarton);
+        // console.log(`Scanned: ${enteredCarton}`);
+            enteredCartonNumberField.value = "";
+            enteredCartonNumberField.focus();
+            console.log(scannedCartons);
+            document.getElementById(enteredCarton).style.background="#59ee56";
+            document.getElementById("scannedCartonCount").innerHTML=scannedCartons.length
+        }
+
+        console.log(`Carton not included in manifest`)
+
+
+        return;
+    }
+    //If entered value isn't a number, display error and clear input field
+    console.log(`Enter a number`)
+    enteredCartonNumberField.value = "";
+    return;
+}

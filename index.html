@@ -7,12 +7,24 @@
     <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
-    <h1>Hello!!</h1>
-    <div id="manifestCartonCount">0</div>
+    <h1>Manifest Carton Audit</h1>
+    <div>Manifest Cartons:</div>
+    <div id="manifestCartonCount">0</div><br>
+
+    <div>Scanned Cartons:</div>
+    <div id="scannedCartonCount">0</div>
     <br>
+    <h2>Add Cartons from Manifest</h2>
     <form id="manifestCartonsListAdd">
         <input type="text" id="cartonNumber" placeholder="Carton #" autofocus>
         <input type="submit" value="Submit" onclick="addManifestCartons()">
+        <input type="submit" value="Remove" onclick="removeCartonNumber()">
+    </form>
+
+    <h2>Scan cartons from truck</h2>
+    <form id="scannedCartonAdd">
+        <input type="text" id="scanCartonInput" placeholder="Carton #">
+        <input type="submit" value="Submit" onclick="addScannedCartons()">
         <input type="submit" value="Remove" onclick="removeCartonNumber()">
     </form>
 
