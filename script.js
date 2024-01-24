@@ -17,7 +17,9 @@ function getSavedData(){
             document.getElementById("scannedCartonCount").innerHTML=scannedCartons.length;
             
             expectedCartons = JSON.parse(localStorage.getItem("expectedCartons"));
-            // document.getElementById(enteredCarton).style.background="#59ee56";
+            for (i=0; i < expectedCartons.length; i++){
+                document.getElementById(expectedCartons[i]).style.background="#59ee56";
+            }
             document.getElementById("expectedCartonCount").innerHTML=expectedCartons.length;
 
             unexpectedCartons = JSON.parse(localStorage.getItem("unexpectedCartons"));
@@ -25,10 +27,13 @@ function getSavedData(){
             createUnexpectedCartonList();
         }
     }
+    // alert("No data saved.")
 }
 
 function clearSavedData(){
     localStorage.clear();
+    location.reload();
+    alert("Saved data cleared.")
 }
 
 function addManifestCartons(){
@@ -43,7 +48,7 @@ function addManifestCartons(){
         //Check if entered value has already been entered. 
         //If so, display error, clear input field and focus cursor for new input.
         if (manifestCartons.includes(enteredCarton)){
-            console.log(`Carton already entered`)
+            alert(`Carton already entered`)
             enteredCartonNumberField.value = "";
             enteredCartonNumberField.focus();
             return;
@@ -53,7 +58,7 @@ function addManifestCartons(){
         // console.log(`Scanned: ${enteredCarton}`);
         enteredCartonNumberField.value = "";
         enteredCartonNumberField.focus();
-        console.log(manifestCartons);
+        // console.log(manifestCartons);
         //Set manifest carton counter
         document.getElementById("manifestCartonCount").innerHTML=manifestCartons.length
 
@@ -65,7 +70,7 @@ function addManifestCartons(){
         return;
     }
     //If entered value isn't a number, display error and clear input field
-    console.log(`Enter a number`)
+    alert(`Carton numbers are not alphanumeric.`)
     enteredCartonNumberField.value = "";
     return;
 }
@@ -75,7 +80,7 @@ function removeCartonNumber(){
     var enteredCartonNumberField = document.getElementById("cartonNumber");
     let enteredCarton = enteredCartonNumberField.value.slice(-6);
     if (manifestCartons.length==0){
-        console.log(`No cartons in list to remove`);
+        alert(`No cartons in list to remove.`);
         return;
     }
     if (enteredCarton.match(/^[0-9]+$/)){
@@ -96,10 +101,10 @@ function removeCartonNumber(){
             return;
         }
 
-        console.log(`Carton number not in list`);
+        alert(`Carton number not valid.`);
         return;
     }
-    console.log(`Enter a number`)
+    alert(`Carton numbers are not alphanumeric.`)
     enteredCartonNumberField.value = "";
     return;
 }
@@ -127,7 +132,9 @@ function addScannedCartons(){
         //Check if entered value has already been entered. 
         //If so, display error, clear input field and focus cursor for new input.
         if (scannedCartons.includes(enteredCarton)){
-            console.log(`Carton already entered`)
+            unexpectCarton_beep.play();
+            alert(`Carton already entered`)
+            
             enteredCartonNumberField.value = "";
             enteredCartonNumberField.focus();
             return;
@@ -143,7 +150,7 @@ function addScannedCartons(){
         // console.log(`Scanned: ${enteredCarton}`);
             enteredCartonNumberField.value = "";
             enteredCartonNumberField.focus();
-            console.log(scannedCartons);
+            // console.log(scannedCartons);
             document.getElementById(enteredCarton).style.background="#59ee56";
             document.getElementById("expectedCartonCount").innerHTML=expectedCartons.length;
             return;
@@ -157,13 +164,13 @@ function addScannedCartons(){
         document.getElementById("unexpectedCartonCount").innerHTML=unexpectedCartons.length;
 
         createUnexpectedCartonList();
-        console.log(`Carton not included in manifest`)
+        // console.log(`Carton not included in manifest`)
 
 
         return;
     }
     //If entered value isn't a number, display error and clear input field
-    console.log(`Enter a number`)
+    alert(`Enter a valid carton number.`)
     enteredCartonNumberField.value = "";
     return;
 }
@@ -173,7 +180,7 @@ function createUnexpectedCartonList(){
              unexpectedCartonList.innerHTML=""
                 for (i = 0; i < unexpectedCartons.length; i++){
                 let li = document.createElement('li');
-                li.setAttribute("id", unexpectedCartons[i]);
+                // li.setAttribute("id", unexpectedCartons[i]);
                 li.innerText = unexpectedCartons[i];
                 unexpectedCartonList.appendChild(li)
                 }
