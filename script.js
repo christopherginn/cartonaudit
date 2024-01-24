@@ -1,11 +1,35 @@
-// console.log("hello")
-
 let manifestCartons = []
 let scannedCartons = []
 let expectedCartons = []
 let unexpectedCartons = []
 
 var unexpectCarton_beep = new Audio("./start-13691.mp3");
+
+function getSavedData(){
+    if (localStorage.getItem("manifestCartons") != null) {
+        manifestCartons = JSON.parse(localStorage.getItem("manifestCartons"))
+        // console.log(manifestCartons.length)
+        document.getElementById("manifestCartonCount").innerHTML=manifestCartons.length
+        createManifestCartonList();
+
+        if (localStorage.getItem("scannedCartons") != null) {
+            scannedCartons = JSON.parse(localStorage.getItem("scannedCartons"));
+            document.getElementById("scannedCartonCount").innerHTML=scannedCartons.length;
+            
+            expectedCartons = JSON.parse(localStorage.getItem("expectedCartons"));
+            // document.getElementById(enteredCarton).style.background="#59ee56";
+            document.getElementById("expectedCartonCount").innerHTML=expectedCartons.length;
+
+            unexpectedCartons = JSON.parse(localStorage.getItem("unexpectedCartons"));
+            document.getElementById("unexpectedCartonCount").innerHTML=unexpectedCartons.length;
+            createUnexpectedCartonList();
+        }
+    }
+}
+
+function clearSavedData(){
+    localStorage.clear();
+}
 
 function addManifestCartons(){
     event.preventDefault();
@@ -36,6 +60,8 @@ function addManifestCartons(){
         //Create visible list of cartons on manifest
         createManifestCartonList();
 
+        localStorage.setItem("manifestCartons", JSON.stringify(manifestCartons));
+
         return;
     }
     //If entered value isn't a number, display error and clear input field
@@ -61,6 +87,10 @@ function removeCartonNumber(){
             enteredCartonNumberField.focus();
 
             document.getElementById("manifestCartonCount").innerHTML=manifestCartons.length;
+
+            localStorage.removeItem("manifestCartons");
+            localStorage.setItem("manifestCartons", JSON.stringify(manifestCartons));
+
             createManifestCartonList();
 
             return;
@@ -103,10 +133,13 @@ function addScannedCartons(){
             return;
         }
         scannedCartons.push(enteredCarton);
+        localStorage.setItem("scannedCartons", JSON.stringify(scannedCartons));
+
         document.getElementById("scannedCartonCount").innerHTML=scannedCartons.length
 
         if (manifestCartons.includes(enteredCarton)){
             expectedCartons.push(enteredCarton);
+            localStorage.setItem("expectedCartons", JSON.stringify(expectedCartons));
         // console.log(`Scanned: ${enteredCarton}`);
             enteredCartonNumberField.value = "";
             enteredCartonNumberField.focus();
@@ -117,25 +150,13 @@ function addScannedCartons(){
         }
 
         unexpectedCartons.push(enteredCarton);
-        for (i=0; i<4; i++){
-            unexpectCarton_beep.play();
-            console.log(`beep ${i}`)
-            unexpectCarton_beep.pause();
-        }
-        // unexpectCarton_beep.play();
-        // unexpectCarton_beep.play();
+        localStorage.setItem("unexpectedCartons", JSON.stringify(unexpectedCartons));
+        unexpectCarton_beep.play();
         enteredCartonNumberField.value = "";
         enteredCartonNumberField.focus();
         document.getElementById("unexpectedCartonCount").innerHTML=unexpectedCartons.length;
 
-        let unexpectedCartonList = document.getElementById("unexpectedCartonList");
-             unexpectedCartonList.innerHTML=""
-                for (i = 0; i < unexpectedCartons.length; i++){
-                let li = document.createElement('li');
-                li.setAttribute("id", unexpectedCartons[i]);
-                li.innerText = unexpectedCartons[i];
-                unexpectedCartonList.appendChild(li)
-                }
+        createUnexpectedCartonList();
         console.log(`Carton not included in manifest`)
 
 
@@ -145,4 +166,15 @@ function addScannedCartons(){
     console.log(`Enter a number`)
     enteredCartonNumberField.value = "";
     return;
+}
+
+function createUnexpectedCartonList(){
+    let unexpectedCartonList = document.getElementById("unexpectedCartonList");
+             unexpectedCartonList.innerHTML=""
+                for (i = 0; i < unexpectedCartons.length; i++){
+                let li = document.createElement('li');
+                li.setAttribute("id", unexpectedCartons[i]);
+                li.innerText = unexpectedCartons[i];
+                unexpectedCartonList.appendChild(li)
+                }
 }

@@ -8,17 +8,20 @@
 </head>
 <body>
     <h1>Manifest Carton Audit</h1>
-    <div>Manifest Cartons:</div>
-    <div id="manifestCartonCount">0</div><br>
+    <button onclick="getSavedData()">Load Saved data</button>
+    <button onclick="clearSavedData()">Clear Saved Data</button>
 
-    <div>Scanned Cartons:</div>
-    <div id="scannedCartonCount">0</div><br>
+    <div>Manifest Cartons: <span id="manifestCartonCount">0</span></div>
+    <br>
 
-    <div>Expected Cartons:</div>
-    <div id="expectedCartonCount">0</div><br>
+    <div>Scanned Cartons: <span id="scannedCartonCount">0</span></div>
+    <br>
 
-    <div>Unexpected Cartons:</div>
-    <div id="unexpectedCartonCount">0</div><br>
+    <div>Expected Cartons: <span id="expectedCartonCount">0</span></div>
+    <br>
+
+    <div>Unexpected Cartons: <span id="unexpectedCartonCount">0</span></div>
+    <br>
 
     <h2>Add Cartons from Manifest</h2>
     <form id="manifestCartonsListAdd">
@@ -31,7 +34,7 @@
     <form id="scannedCartonAdd">
         <input type="text" id="scanCartonInput" placeholder="Carton #">
         <input type="submit" value="Submit" onclick="addScannedCartons()">
-        <input type="submit" value="Remove" onclick="removeCartonNumber()">
+        <!-- <input type="submit" value="Remove" onclick="removeCartonNumber()"> -->
     </form>
 
     <br>
