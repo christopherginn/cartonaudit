@@ -5,6 +5,8 @@ let scannedCartons = []
 let expectedCartons = []
 let unexpectedCartons = []
 
+var unexpectCarton_beep = new Audio("./start-13691.mp3");
+
 function addManifestCartons(){
     event.preventDefault();
     var enteredCartonNumberField = document.getElementById("cartonNumber");
@@ -115,6 +117,13 @@ function addScannedCartons(){
         }
 
         unexpectedCartons.push(enteredCarton);
+        for (i=0; i<4; i++){
+            unexpectCarton_beep.play();
+            console.log(`beep ${i}`)
+            unexpectCarton_beep.pause();
+        }
+        // unexpectCarton_beep.play();
+        // unexpectCarton_beep.play();
         enteredCartonNumberField.value = "";
         enteredCartonNumberField.focus();
         document.getElementById("unexpectedCartonCount").innerHTML=unexpectedCartons.length;
