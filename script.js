@@ -2,6 +2,7 @@
 
 let manifestCartons = []
 let scannedCartons = []
+let expectedCartons = []
 let unexpectedCartons = []
 
 function addManifestCartons(){
@@ -99,17 +100,33 @@ function addScannedCartons(){
             enteredCartonNumberField.focus();
             return;
         }
+        scannedCartons.push(enteredCarton);
+        document.getElementById("scannedCartonCount").innerHTML=scannedCartons.length
 
         if (manifestCartons.includes(enteredCarton)){
-            scannedCartons.push(enteredCarton);
+            expectedCartons.push(enteredCarton);
         // console.log(`Scanned: ${enteredCarton}`);
             enteredCartonNumberField.value = "";
             enteredCartonNumberField.focus();
             console.log(scannedCartons);
             document.getElementById(enteredCarton).style.background="#59ee56";
-            document.getElementById("scannedCartonCount").innerHTML=scannedCartons.length
+            document.getElementById("expectedCartonCount").innerHTML=expectedCartons.length;
+            return;
         }
 
+        unexpectedCartons.push(enteredCarton);
+        enteredCartonNumberField.value = "";
+        enteredCartonNumberField.focus();
+        document.getElementById("unexpectedCartonCount").innerHTML=unexpectedCartons.length;
+
+        let unexpectedCartonList = document.getElementById("unexpectedCartonList");
+             unexpectedCartonList.innerHTML=""
+                for (i = 0; i < unexpectedCartons.length; i++){
+                let li = document.createElement('li');
+                li.setAttribute("id", unexpectedCartons[i]);
+                li.innerText = unexpectedCartons[i];
+                unexpectedCartonList.appendChild(li)
+                }
         console.log(`Carton not included in manifest`)
 
 
