@@ -1,5 +1,6 @@
 .counter_wrapper {
     background-color: rgb(170, 170, 170);
+    /* max-width: 100%; */
     display: grid;
     grid-template-columns: auto auto auto auto;
 }

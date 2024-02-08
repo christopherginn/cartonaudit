@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script type="text/javascript" src="./second_script.js"></script>
+</head>
+<body>
+    <h1>Manifest Carton Audit</h1>
+    <button onclick="getSavedData()">Load Saved data</button>
+    <button onclick="clearSavedData()">Clear Saved Data</button><br><br>
+
+    <div class="counter_wrapper">
+        <div>
+            <div>Manifest Cartons: <br><span id="manifestCartonCount">0</span></div>
+        </div>
+        <div>
+            <div>Scanned Cartons: <br><span id="scannedCartonCount">0</span></div>
+        </div>
+        <div>
+            <div>Expected Cartons: <br><span id="expectedCartonCount">0</span></div>
+        </div>
+        <div>
+            <div>Unexpected Cartons: <br><span id="unexpectedCartonCount">0</span></div>
+        </div>
+    </div>
+    <br>
+
+    <details>
+    <summary><b>Add Cartons from Manifest</b></summary>
+    <form id="manifestCartonsListAdd">
+        <input type="text" id="cartonNumber" placeholder="Carton #" autofocus>
+        <input type="submit" value="Submit" onclick="addManifestCartons()">
+        <input type="submit" value="Remove" onclick="removeCartonNumber()">
+    </form>
+    </details>
+
+    <h3>Scan cartons from truck</h3>
+    <form id="scannedCartonAdd">
+        <input type="text" id="scanCartonInput" placeholder="Carton #">
+        <input type="submit" value="Submit" onclick="addScannedCartons()">
+        <!-- <input type="submit" value="Remove" onclick="removeCartonNumber()"> -->
+    </form>
+
+    <br>
+    <h4>Manifest Cartons:</h4>
+    <div>
+        <ul class="carton_list" id="manifestCartonList"></ul>
+    </div>
+    
+    <h4>Unexpected Cartons:</h4>
+    <div>
+        <ul class="list_container" id="unexpectedCartonList"></ul>
+    </div>
+</body>
+</html>

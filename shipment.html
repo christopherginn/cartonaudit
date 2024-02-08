@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="./shipment.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <form id="shipment_add">
+        <input type="text" id="shipmentNumber" placeholder="Shipment #" autofocus>
+        <input type="date" id="shipmentDate" required>
+        <input type="submit" value="Submit" onclick="addShipment()">
+        <!-- <input type="submit" value="Remove" onclick="removeCartonNumber()"> -->
+    </form>
+
+    <br>
+
+    Go to a shipment:
+    <select id="shipmentListNum" onchange="shipmentListSelect()">
+        <option value="1111111">1111111</option>
+        <option value="2222222">222222</option>
+    </select>
+</body>
+</html>
