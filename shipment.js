@@ -1,3 +1,21 @@
+window.onload = function(){
+    let shipmentDropdownList = document.getElementById("shipmentListNum");
+    let currentShipmentList = JSON.parse(localStorage.getItem("shipmentList"));
+
+    shipmentDropdownList.innerHTML="";
+            let placeholderOption = document.createElement('option');
+            placeholderOption.setAttribute("selected", "selected")
+            placeholderOption.setAttribute("disabled", "disabled");
+            placeholderOption.innerText="Select Shipment";
+            shipmentDropdownList.appendChild(placeholderOption);
+            
+            for (i=0; i<currentShipmentList.length; i++){
+                let option = document.createElement('option');
+                option.innerText = currentShipmentList[i];
+                shipmentDropdownList.appendChild(option);
+}
+};
+
 function addShipment() {
     event.preventDefault();
 
@@ -6,6 +24,9 @@ function addShipment() {
 
     if (enteredShipmentNum.match(/^[0-9]+$/)){
         console.log(`Valid number`);
+        if (enteredShipmentDate === ""){
+            console.log(`Must have a date`)
+            return}
         console.log(`${enteredShipmentDate}`);
 
         if (localStorage.getItem(enteredShipmentNum) == null){
@@ -13,10 +34,40 @@ function addShipment() {
                                 shipmentId: enteredShipmentNum,
                                 shipmentDate: enteredShipmentDate,
                                 manifestCartons: [],
-                                scannedCartons: []
+                                scannedCartons: [],
+                                expectedCartons: [],
+                                unexpectedCartons: [],
+                                cartonsOnOthManifests: [],
+                                cartonsScannedOnOthShip: []
                                 };
 
             localStorage.setItem(enteredShipmentNum, JSON.stringify(shipmentObj));
+            
+            if (localStorage.getItem("shipmentList") == null) {
+                localStorage.setItem("shipmentList", JSON.stringify([enteredShipmentNum]));
+            } else {
+                let updatedShipmentList = JSON.parse(localStorage.getItem("shipmentList"));
+                updatedShipmentList.push(enteredShipmentNum);
+                localStorage.setItem("shipmentList", JSON.stringify(updatedShipmentList));
+            };
+
+            let shipmentDropdownList = document.getElementById("shipmentListNum");
+            let currentShipmentList = JSON.parse(localStorage.getItem("shipmentList"));
+            
+            shipmentDropdownList.innerHTML="";
+            let placeholderOption = document.createElement('option');
+            placeholderOption.setAttribute("disabled", "disabled");
+            placeholderOption.innerText="Select Shipment";
+            shipmentDropdownList.appendChild(placeholderOption);
+            
+            for (i=0; i<currentShipmentList.length; i++){
+                let option = document.createElement('option');
+                option.innerText = currentShipmentList[i];
+                shipmentDropdownList.appendChild(option);
+
+            }
+
+
             console.log(`Shipment created`)
             return
         }
@@ -32,5 +83,7 @@ function addShipment() {
 }
 
 function shipmentListSelect(){
-    console.log(document.getElementById("shipmentListNum").value)
-}
+    let shipment = document.getElementById("shipmentListNum").value
+    console.log(shipment)
+    window.location.href = `./carton_scan.html?shipment=${shipment}`;
+};

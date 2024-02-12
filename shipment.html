@@ -7,9 +7,10 @@
     <title>Document</title>
 </head>
 <body>
+    Add a new shipment:
     <form id="shipment_add">
         <input type="text" id="shipmentNumber" placeholder="Shipment #" autofocus>
-        <input type="date" id="shipmentDate" required>
+        <input type="date" id="shipmentDate">
         <input type="submit" value="Submit" onclick="addShipment()">
         <!-- <input type="submit" value="Remove" onclick="removeCartonNumber()"> -->
     </form>
@@ -18,8 +19,7 @@
 
     Go to a shipment:
     <select id="shipmentListNum" onchange="shipmentListSelect()">
-        <option value="1111111">1111111</option>
-        <option value="2222222">222222</option>
+        <option value="" disabled selected>Select Shipment</option>
     </select>
 </body>
 </html>
