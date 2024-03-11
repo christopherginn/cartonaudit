@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="./new_cartonManifest.js"></script>
+</head>
+<body>
+    <form id="manifestCartonsListAdd">
+        <input type="text" id="cartonNumber" placeholder="Carton #" autofocus>
+        <input type="submit" value="Submit" onclick="addManifestCartons()">
+        <input type="submit" value="Remove" onclick="removeCartonNumber()">
+    </form>
+
+    <table id="manfiestCartons">
+        <tr>
+            <td>Carton #</td>
+            <!-- <td>Scanned</td> -->
+        </tr>
+    </table>
+    
+</body>
+</html>

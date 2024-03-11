@@ -232,6 +232,7 @@ function addScannedCartons(){
         createUnexpectedCartonList();
         // console.log(`Carton not included in manifest`)
 
+        // Check if carton is on other Manifests
         for (i=0; i<shipmentList.length; i++){
             let shipment = JSON.parse(localStorage.getItem(shipmentList[i]));
             if (shipment !== null){
