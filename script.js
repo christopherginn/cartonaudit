@@ -87,7 +87,7 @@ function cartonEntry(){
     let cartonListFiltered = []
 
     for (i = 0; i < inputSplit.length; i++){
-        if (inputSplit[i].includes("PACIFIC MARKET INTER")){
+        if (inputSplit[i].includes("PACIFIC MARKET INTER")||inputSplit[i].includes("PMI WW BRANDS LLC")){
             // cartonListFiltered.push(inputSplit[i])
             const lineSplit = inputSplit[i].split(" ");
 
